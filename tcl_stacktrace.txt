@@ -1,0 +1,63 @@
+Sat Dec 12 00:47:16 Hora oficial do Brasil 2020
+Trace back: Bad window index: .main_pane.source6
+    while executing
+"error "Bad window index: $window""
+    (object "::.main_pane.cs.13" method "::mtiwidgets::Tabbedwindow::tabindex" body line 15)
+    invoked from within
+"tabindex $window"
+    (object "::.main_pane.cs.13" method "::mtiwidgets::Tabbedwindow::tabcget" body line 3)
+    invoked from within
+"$pp tabcget $window $option"
+    (object "::.main_pane" method "::mtiwidgets::Panemanager::tabcget" body line 8)
+    invoked from within
+"$itk_option(-panemanager) tabcget $itk_component(hull) -mark"
+    (while configuring option "-mark" for widget "::.main_pane.source6")
+    (object "::.main_pane.source6" method "::itk::Archetype::configure" )
+    invoked from within
+"$windowobj configure -mark """
+    (procedure "SourceTitle" line 11)
+    invoked from within
+"SourceTitle .main_pane.source6"
+    ("eval" body line 1)
+    invoked from within
+"eval $itk_option(-titlecommand) $frame_name"
+    (object "::.main_pane.source6" method "::mtiwidgets::WindowObj::Title" body line 9)
+    invoked from within
+"Title"
+    (object "::.main_pane.source6" method "::mtiwidgets::WindowObj::UpdateText" body line 9)
+    invoked from within
+"$windowobj UpdateText"
+    (object "::.main_pane.source6.interior.cs.body.editor" method "::vsimwidgets::Srcedit::UpdateSourceState" body line 38)
+    invoked from within
+"::.main_pane.source6.interior.cs.body.editor UpdateSourceState"
+    (in namespace inscope "::vsimwidgets::Srcedit" script line 1)
+    invoked from within
+"namespace inscope ::vsimwidgets::Srcedit {::.main_pane.source6.interior.cs.body.editor UpdateSourceState}"
+    (command bound to event)
+  <2: ::tkerror {Bad window index: .main_pane.source6}
+  <1: ::bgerror {Bad window index: .main_pane.source6}
+Sat Dec 12 11:44:23 Hora oficial do Brasil 2020
+Trace back: invalid command name ""
+    while executing
+"$tree expandeditems -worm"
+    (procedure "_resetTree" line 7)
+    invoked from within
+"_resetTree $w"
+    (procedure "QObjects::sort" line 4)
+    invoked from within
+"QObjects::sort .main_pane.objects 0 ascending"
+    ("eval" body line 1)
+    invoked from within
+"eval $itk_option(-sortcommand) $column $dir"
+    (object "::.main_pane.objects.interior.cs.body.tree" method "::vsimwidgets::Hierarchy::sort" body line 26)
+    invoked from within
+"sort $sortIdx $dir"
+    (object "::.main_pane.objects.interior.cs.body.tree" method "::vsimwidgets::Hierarchy::_initializeSortColumn" body line 10)
+    invoked from within
+"::.main_pane.objects.interior.cs.body.tree _initializeSortColumn"
+    (in namespace inscope "::vsimwidgets::Hierarchy" script line 1)
+    invoked from within
+"namespace inscope ::vsimwidgets::Hierarchy {::.main_pane.objects.interior.cs.body.tree _initializeSortColumn}"
+    ("after" script)
+  <2: ::tkerror {invalid command name ""}
+  <1: ::bgerror {invalid command name ""}

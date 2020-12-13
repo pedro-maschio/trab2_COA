@@ -64,7 +64,12 @@ architecture rv_arch of rv is
 	signal syscall_reg : std_logic_vector(31 downto 0) := (others => '0');
 	signal syscall_parameter_reg : std_logic_vector(31 downto 0) := (others => '0');
 	
-		
+	-- sinal para addrpos
+	signal escreveReg : std_logic;
+	
+	-- sinal para addrpos e addine
+	signal reg_write_data_alterado : std_logic_vector(31 downto 0);
+	
 begin
 
 	pc_reg: process(clock, reset) 
@@ -82,13 +87,8 @@ begin
 	                 else std_logic_vector(signed(reg_data_1) + signed(imm32)) when jalr = '1'
 	                 else std_logic_vector(unsigned(pc) + 4);
 	                   
-	-- mux pra decidir o bregwrite
-	bregwrite <= '1' when rdControl = "00" 
-	             else '1' when ((rdControl = "01") and (signed(result) > 0))
-	             else '1' when ((rdControl = "10") and (result = x"00000001"))
-					     else '0';
-	
-	
+
+					       
 	top_imem : entity work.imem
 	port map ( 
 			address => pc(8 downto 2),
@@ -107,17 +107,29 @@ begin
 			imm32	=> imm32
 	);
 	
+	-- mux pra decidir o bregwrite
+  escreveReg <= bregwrite when rdControl = "00" 
+                else '1' when (rdControl = "01" and signed(result) > 0)  -- addrpos
+                else '1' when (rdControl = "10" and result = x"00000001") -- addine
+                else '0';
+  -- para as instruções addine e addrpos, teremos um somador externo à ULA              
+  reg_write_data_alterado <= std_logic_vector(signed(reg_data_1) + signed(reg_data_2)) when ((rdControl = "01" or rdControl = "10") and escreveReg = '1')
+                        else reg_write_data;     
+  
+	
 	top_breg : entity work.breg
 	port map ( 
 			clock 			=> clock,
-			bregwrite		=> bregwrite,	
+			bregwrite		=> escreveReg,	
 			reg_index_read1	=> rs1,
 			reg_index_read2	=> rs2,
 			reg_index_write	=> rd,
-			reg_write_data	=> reg_write_data,
+			reg_write_data	=> reg_write_data_alterado,
 			reg_data_1		=> reg_data_1,
 			reg_data_2		=> reg_data_2	
 	);
+	
+  
 	
 	--mux para decidir o que tera na entrada B da ULA
 	aluB <= reg_data_2 when origALU='0' else imm32;
@@ -150,6 +162,10 @@ begin
 					else dmem_read_data when data2reg="001" 
 					else result when data2reg="000" 
 					else (others=>'0');
+  
+  
+
+
 	
 	top_maincontrol : entity work.maincontrol
 	port map ( 
@@ -163,6 +179,7 @@ begin
 	    branch		=> branch,		
 	    data2reg	=> data2reg,		
 	    jal			=> jal,
+	    
 	    -- instruções adicionadas
 	    jalr => jalr,
 	    rdControl => rdControl,

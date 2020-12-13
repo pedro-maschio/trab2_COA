@@ -34,7 +34,7 @@ begin
 	reg_data_2 <= breg_array(to_integer(unsigned(reg_index_read2))) when (to_integer(unsigned(reg_index_read2))>0) else (others => '0');
 	 
 	 
-  
+  '1' when (rdControl = "10" and result = x"00000001")
   
 	process	(clock)
 	begin

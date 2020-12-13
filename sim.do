@@ -1,6 +1,6 @@
 if {[file isdirectory work]} { vdel -all -lib work }
 vlib work
 vcom -2008 *.vhd
-vsim tb
+vsim tb -t ns
 do wave.do 
-run 1 ms
+run 100 ns

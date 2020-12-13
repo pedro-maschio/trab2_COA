@@ -41,9 +41,9 @@ begin
 			  data2reg <= "000";
         bregwrite <= '1';	
         branch <= '0';
-				jal <= '0';	
+				jal <= '0';	  
 				jalr <= '0';
-				rdControl <= "00";
+				rdControl <= "00"; -- se for um tipo R genérico
 				
         case funct3 is
           
@@ -53,8 +53,9 @@ begin
 							operation <= "0000";
 						elsif funct7 = "0100000" then --sub
 							operation <= "0001";
-						elsif funct7 = "0000001" then -- addrpos
-                data2reg <= "101";
+						elsif funct7 = "0000001" then -- instrução addrpos
+						    operation <= "0000";
+						    rdControl <= "01";
 						else 
 							operation <= (others=>'0');
 						end if;
@@ -243,6 +244,7 @@ begin
         branch <= '0';
         jal <= '0';
         jalr <= '0';
+        rdControl <= "00";
         operation <= "----";
                 
       --auipc
@@ -255,9 +257,10 @@ begin
         branch <= '0';
         jal <= '0';
         jalr <= '0';
+        rdControl <= "00";
         operation <= "----";
         
-      -- instruções novas
+      -- instruções novas: jalr, addine e getbfw
       
       --jalr
       when "1100111" =>
@@ -269,8 +272,34 @@ begin
         branch <= '0';
         jal <= '0';
         jalr <= '1';
-        rdControl <= "00";
+        rdControl <= "01";
         operation <= "0000";
+        
+      -- addine
+      when "0001111" =>
+        origALU <= '1';
+        dmemread <= '0';
+        dmemwrite <= '0';
+        data2reg <= "000";
+        bregwrite <= '1';
+        branch <= '0';
+        jal <= '0';
+        jalr <= '0';
+        rdControl <= "10";
+        operation <= "1011";
+        
+      -- betbfw
+    	 when "1111111" =>
+        origALU <= '0';
+        dmemread <= '0';
+        dmemwrite <= '0';
+        data2reg <=  "000";
+        bregwrite <= '1';
+        branch <= '0';
+        jal <= '0';
+        jalr <= '0';
+        rdControl <= "00";
+        operation <= "1110";	  
 
       -- others
 			when others =>
