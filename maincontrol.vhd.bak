@@ -287,6 +287,19 @@ begin
         jalr <= '0';
         rdControl <= "10";
         operation <= "1011";
+        
+      -- betbfw
+    	 when "1111111" =>
+        origALU <= '0';
+        dmemread <= '0';
+        dmemwrite <= '0';
+        data2reg <=  "000";
+        bregwrite <= '1';
+        branch <= '0';
+        jal <= '0';
+        jalr <= '0';
+        rdControl <= "00";
+        operation <= "1110";	  
 
       -- others
 			when others =>

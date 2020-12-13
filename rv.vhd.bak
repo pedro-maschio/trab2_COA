@@ -113,7 +113,7 @@ begin
                 else '1' when (rdControl = "10" and result = x"00000001") -- addine
                 else '0';
   -- para as instruções addine e addrpos, teremos um somador externo à ULA              
-  reg_write_data_alterado <= std_logic_vector(signed(reg_data_1) + signed(reg_data_2)) when ((rdControl = "01" or rdControl = "10") and escreveReg = '1')
+  reg_write_data_alterado <= std_logic_vector(signed(reg_data_1) + signed(imm32)) when ((rdControl = "01" or rdControl = "10") and escreveReg = '1')
                         else reg_write_data;     
   
 	

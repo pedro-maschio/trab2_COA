@@ -163,10 +163,7 @@ begin
 					else result when data2reg="000" 
 					else (others=>'0');
   
-  
 
-
-	
 	top_maincontrol : entity work.maincontrol
 	port map ( 
 			opcode		=> opcode,

@@ -272,7 +272,7 @@ begin
         branch <= '0';
         jal <= '0';
         jalr <= '1';
-        rdControl <= "01";
+        rdControl <= "00";
         operation <= "0000";
         
       -- addine
