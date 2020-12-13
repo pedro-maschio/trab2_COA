@@ -55,6 +55,7 @@ begin
 					result <= x"00000001";
 				else result <= (others => '0');
 				end if;
+			-- nova operação da ULA para getbfw
 			when "1110" =>
 			  if(B  = x"00000000") then
 			     result <= x"000000" & A(7 downto 0);

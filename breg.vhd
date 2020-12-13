@@ -33,9 +33,6 @@ begin
 	reg_data_1 <= breg_array(to_integer(unsigned(reg_index_read1))) when (to_integer(unsigned(reg_index_read1))>0) else (others => '0');
 	reg_data_2 <= breg_array(to_integer(unsigned(reg_index_read2))) when (to_integer(unsigned(reg_index_read2))>0) else (others => '0');
 	 
-	 
-  
-  
 	process	(clock)
 	begin
 	  
